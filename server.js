@@ -40,6 +40,12 @@ app.get('/', (req,res)=>{
         welcome: 'Welcome Home'
     });
 })
+app.get('/projects', (req,res)=>{
+    res.render('projects.hbs',{
+        me: 'Projects',
+        welcome: 'Portfolios'
+    });
+})
 
 app.get('/about',(req,res)=>{
     res.render('about.hbs',{
