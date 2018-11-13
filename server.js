@@ -1,6 +1,8 @@
 const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
+// for heroku 
+const port = process.env.PORT || 3000;
 
 var app= express();
 app.set('view engine', 'hbs');
@@ -9,12 +11,13 @@ app.use(express.static(__dirname+'/pages'));
 app.use((req,res, next)=>{
 var date = new Date().toString();
 console.log(`${date}`);
+fs.appendFile('log.log',date,(err)=>{
+    if(err){
+        console.log(err);
+    }
+});
 next();
-fs.appendFile('log.log',date);
 
-})
-app.use((req,res,next)=>{
-    res.render('maintain.hbs');
 })
 
 hbs.registerPartials(__dirname+'/views/partials')
@@ -52,4 +55,4 @@ res.send({
 });
 
 
-app.listen(3000);
+app.listen(port);
